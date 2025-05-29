@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
 
-app = Flask(__name__, static_folder='../static', template_folder='../templates')
-DB_PATH = os.path.join(os.path.dirname(__file__), '..', 'database.db')
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
+
+# Use an in-memory database fallback for Vercel if needed
+DB_PATH = "/tmp/database.db"
 
 def init_db():
     with sqlite3.connect(DB_PATH) as conn:
@@ -36,6 +38,3 @@ def delete_note(note_id):
     with sqlite3.connect(DB_PATH) as conn:
         conn.execute("DELETE FROM notes WHERE id=? AND username=?", (note_id, username))
     return redirect(url_for('index', user=username))
-
-# Required by Vercel
-app.config['JSON_AS_ASCII'] = False
