@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ username }}'s Notes</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}</h1>
+        <form method="POST">
+            <input type="text" name="note" placeholder="Write a new note..." required>
+            <button type="submit">Add Note</button>
+        </form>
+
+        <ul class="notes-list">
+            {% for note in notes %}
+                <li>
+                    <span>{{ note[1] }}</span>
+                    <a href="/delete/{{ note[0] }}?user={{ username }}">🗑️</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
