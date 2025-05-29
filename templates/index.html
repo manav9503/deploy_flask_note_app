@@ -7,18 +7,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome, {{ username }}</h1>
+        <h1>Hello, {{ username }}!</h1>
         <form method="POST">
-            <input type="text" name="note" placeholder="Write a new note..." required>
-            <button type="submit">Add Note</button>
+            <input type="text" name="note" placeholder="Write a note..." required>
+            <button type="submit">Add</button>
         </form>
-
         <ul class="notes-list">
             {% for note in notes %}
-                <li>
-                    <span>{{ note[1] }}</span>
-                    <a href="/delete/{{ note[0] }}?user={{ username }}">🗑️</a>
-                </li>
+                <li>{{ note[1] }} <a href="/delete/{{ note[0] }}?user={{ username }}">🗑️</a></li>
             {% endfor %}
         </ul>
     </div>
